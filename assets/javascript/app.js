@@ -1,117 +1,173 @@
 $(document).ready(function() {
-	
-var round = 0;
-var correct = 0;
-var incorrect = 0;
-var questions = 4;
-var percent = correct / questions;
-var time = 10;
-var counter = setInterval(timer, 1000)
+  //Global Variables
+  //--------------------------------------------------------------------	
+  var round = 0;
+  var correct = 0;
+  var incorrect = 0;
+  var questions = 4;
+  var percent = correct / questions;
+  var time = 5;
+  var counter = setInterval(timer, 1000)
 
-var	question1 = {
-  question: "What is the mascot of University of Florida",
-  answers: ['crane', 'gator', 'bulldog', 'tide'],
-  correct: [false, true, false, false]
-  //could also use correct: 2 would say answer 3 is correct
-};
 
-var question2 = {
-  question: "what is the mascot of Georgia",
-  answers: ['bulldog', 'golden retriever', 'puppy', 'blah'],
-  correct: [true, false, false, false]
+  var game = {
+    question: ["question1", "question2", "question3", "question4"],
+    choice1: ["gators", "two1", "three1", "four1"],
+    choice2: ["one2", "two2", "three2", "four2"],
+    choice3: ["one3", "two3", "three3", "four3"],
+    choice4: ["one4", "two4", "three4", "four4"],
+    correct: ["gators", "two", "three", "four"]
+
+  }
+
+  var	question1 = {
+    question: "What is the mascot of University of Florida",
+    answers: ['crane', 'gator', 'bulldog', 'tide'],
+    correct: [false, true, false, false]
+    //could also use correct: 2 would say answer 3 is correct
+  };
+
+  var question2 = {
+    question: "what is the mascot of Georgia",
+    answers: ['bulldog', 'golden retriever', 'puppy', 'blah'],
+    correct: [true, false, false, false]
+  };
+
+  var question3 = {
+    question: "this is the third question",
+    answers: ['answer1', 'answer2', 'answer3', 'answer4'],
+    correct: 2
   //this shows answer3 is correct
-};
+  }
 
-var question3 = {
-  question: "this is the third question",
-  answers: ['answer1', 'answer2', 'answer3', 'answer4'],
-  correct: [false, false, true, false]
+  //functions
+  //--------------------------------------------------------------------
 
-}
-
-function timer() {
-  time--;
-  $('timer').text(time);
-
-
-}
-
-if (time == 0) {
+  /*reduces time variable by 1 per second, insets the time into the #timer div, if time
+  reaches 0 stop and call the funciton for the next question*/
+  function timer() {
+    time--;
+    $('#timer').text(time + ' seconds');
   
-}
+  if(time == 0){
+      resetTimer();
+      init();
+    }
+  }
+
+  function resetTimer() {
+    time = 5;
+  }
+
+  function stopTimer() {
+    clearTimeout(counter);
+  }
+
+  function checkAnswer() {
+    if(userGuess == game.question[round].correct){
+      correct++;
+    }
+    else{
+      incorrect++;
+    }
+  }
+/*  function init() {
+    //hide the start page
+    $('#timer').text(time);
+    $('#question').text(question1.question);
+    $('#button1').text(question1.answers[0]);
+    $('#button2').text(question1.answers[1]);
+    $('#button3').text(question1.answers[2]);
+    $('#button4').text(question1.answers[3]);
+    round++
+
+  };*/
+
+/*  function questionTwo() {
+    $('#timer').text(time);
+    $('#question').text(question2.question);
+    $('#button1').text(question2.answers[0]);
+    $('#button2').text(question2.answers[1]);
+    $('#button3').text(question2.answers[2]);
+    $('#button4').text(question2.answers[3]);
+    timer();
 
 
-//run game function if button pressed
-//turns button off and turns game dive on
-//game start turnst he timer on as well
 
-$('#buttonStart').on('click', function() {
-  $('#start').hide();
-  $('#game').show();
-  timer();
+  }*/
+  /*calls the question and answer to the #game div, resets the timer and 
+  increases the round variable by 1.  If it round is greater than the amount
+  of questions it will stop the timer, hide the #game and show the #results div*/
+  function init() {
+    if(round < game.question.length) {
+    console.log("pre" + round)
+    $('#timer').text(time + ' seconds');
+    $('#question').text(game.question[round]);
+    $('#button1').text(game.choice1[round]);
+    $('#button2').text(game.choice2[round]);
+    $('#button3').text(game.choice3[round]);
+    $('#button4').text(game.choice4[round]);
+    round++;
+    counter;
+    console.log("post" + round);
+    } 
+    else{
+      stopTimer();
+      $('#game').hide();
+      $('#results').show();
+    }
+    return;
+  }
+
+
+
+
+  //Main Process
+  //--------------------------------------------------------------------
+  /*start screen button that when pressed will hide the #start div and show the
+  #game div*/
+  $('#buttonStart').on('click', function() {
+    $('#start').hide();
+    $('#game').show();
+
     init();
-    
-});
+          
+  });
 
-
-setTimeout()
-
-
-
-function init() {
-  //hide the start page
-  $('#question').text(question1.question);
-  $('#button1').text(question1.answers[0]);
-  $('#button2').text(question1.answers[1]);
-  $('#button3').text(question1.answers[2]);
-  $('#button4').text(question1.answers[3]);
-
-};
-
-$('.buttons').on('click', function() {
-    $('#game').hide();
-    $('#results').show();
+  /*if the user selects an answer button it will reset the timer and bring
+  up the next round of questions*/
+  $('.buttons').on('click', function() {
+      
+      resetTimer();
+      init();
+  });
 
 
 
 
-});
 
-//capture data of the user guess
 
-//check to see if the user guess is correct
+
+
+
+//hover not currently working
+  $(".buttons").hover(function() {
+      $(this).addClass(".hover");
+  },
+  function(){
+      $(this).removeClass(".hover");
+  });
+
+
+
+
+
 
 }); 
 
-//for loop putting each question into the game
-//for loop putting a <button> + answer[i]+</button>
-
-//function to call the question and possible answers
 
 
 
-
-
-//funciton to record the click as the user guess
-
-
-/*var count = 30;
-var counter=setInterval(timer, 1000); 
-//function to change the question once time runs down or user chooses a question
-console.log(count);
-function timer()
-{
-  count--;
-  if (count <= 0)
-  {
-  	document.getElementsById('body').innerHTML="you lose";
-     count = 30;
-     return;
-  }
-
- document.getElementById("timer").innerHTML=count + " secs"; // watch for spelling
-}
-*/
 
 
 

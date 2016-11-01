@@ -7,6 +7,20 @@
 	display: none;
 }
 
+
 .buttons {
+	background: none;	
+	border: none;
+	font-size: 16px;
+	color: black;
+
+}
+
+.hover {
 	
+	color: red;
+}
+
+#correct {
+	color: red;
 }
