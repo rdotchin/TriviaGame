@@ -5,26 +5,40 @@ var correct = 0;
 var incorrect = 0;
 var questions = 4;
 var percent = correct / questions;
+var time = 10;
+var counter = setInterval(timer, 1000)
 
 var	question1 = {
-  question: "this is the first question",
-  answers: ['answer1', 'answer2', 'answer3', 'answer4'],
+  question: "What is the mascot of University of Florida",
+  answers: ['crane', 'gator', 'bulldog', 'tide'],
   correct: [false, true, false, false]
   //could also use correct: 2 would say answer 3 is correct
 };
 
 var question2 = {
-  question: "this is the second question",
-  answers: ['answer1', 'answer2', 'answer3', 'answer4'],
-  correct: 2
+  question: "what is the mascot of Georgia",
+  answers: ['bulldog', 'golden retriever', 'puppy', 'blah'],
+  correct: [true, false, false, false]
   //this shows answer3 is correct
 };
 
-var question2 = {
+var question3 = {
+  question: "this is the third question",
+  answers: ['answer1', 'answer2', 'answer3', 'answer4'],
+  correct: [false, false, true, false]
 
 }
 
+function timer() {
+  time--;
+  $('timer').text(time);
 
+
+}
+
+if (time == 0) {
+  
+}
 
 
 //run game function if button pressed
@@ -34,11 +48,13 @@ var question2 = {
 $('#buttonStart').on('click', function() {
   $('#start').hide();
   $('#game').show();
+  timer();
     init();
     
 });
 
 
+setTimeout()
 
 
 
