@@ -6,20 +6,21 @@ $(document).ready(function() {
   var incorrect = 0;
   var unanswered = 0;
   var percent = 0;
-  var time = 5;
+  var time = 30;
   
   /*arrays containing the questions, choices, and correct answer that the variable
   round will cycle through when called in functions*/
   var questions =    ["Where did the name lynard skynard come from?",
                       "What is the real name of Freddie Mercury?",
                       "What is Paul McCartney's first name?",
-                      "How did AC/DC get their name?"];
-  var choiceArray1 = ['Local Mailman', 'Freddie Mingus', 'James', 'Air Conditioning & DC Comics'];
-  var choiceArray2 = ['High School Football Coach', 'Farrokh Bulsara', 'Paul', 'Sewing Machine'];
-  var choiceArray3 = ['The Bassist Name', 'Ben Johnson', 'Sting', 'Magazine Ad'];
-  var choiceArray4 = ['High School Gym Teacher', 'Eleven', 'John', 'TV Commercial'];
-  var correctArray = ['High School Gym Teacher', 'Farrokh Bulsara', 'James', 'Sewing Machine'];
-  var gifArray = ['assets/gifs/gif1.gif', 'assets/gifs/gif2.gif', 'assets/gifs/gif3.gif', 'assets/gifs/gif4.gif'];
+                      "How did AC/DC get their name?",
+                      "Where is the band Boston from?"];
+  var choiceArray1 = ['Local Mailman', 'Freddie Mingus', 'James', 'Air Conditioning & DC Comics', 'New York'];
+  var choiceArray2 = ['High School Football Coach', 'Farrokh Bulsara', 'Paul', 'Sewing Machine', 'Orlando'];
+  var choiceArray3 = ['The Bassist Name', 'Ben Johnson', 'Sting', 'Magazine Ad', 'Boston'];
+  var choiceArray4 = ['High School Gym Teacher', 'Eleven', 'John', 'TV Commercial', 'Dallas'];
+  var correctArray = ['High School Gym Teacher', 'Farrokh Bulsara', 'James', 'Sewing Machine', 'Boston'];
+  var gifArray = ['assets/gifs/gif1.gif', 'assets/gifs/gif2.gif', 'assets/gifs/gif3.gif', 'assets/gifs/gif4.gif', 'assets/gifs/gif5.gif'];
 
   //functions
   //--------------------------------------------------------------------
@@ -35,7 +36,7 @@ $(document).ready(function() {
   }
  //stops the timer at the end of the game by clearing the variable
   function stopTimer() {
-    clearTimeout(counter);
+    clearInterval(counter);
   }
 
   /*reduces time variable by 1 per 1 second interval, insets the time into the 
@@ -53,7 +54,7 @@ $(document).ready(function() {
 
   //resets the timer to the starting amount
   function resetTimer() {
-    time = 5;
+    time = 30;
   }
 
   //--------------------------------------------------------------------
@@ -103,7 +104,6 @@ $(document).ready(function() {
     }
     else {
       incorrect++;
-      console.log("incorrect " + incorrect);
       stopTimer();
       wrongAnswer();
     }
@@ -173,42 +173,6 @@ $(document).ready(function() {
     $('#button4').on('click', function() {
       checkAnswer(choiceArray4[round])
   });
-
-
-//CSS
-//--------------------------------------------------------------------
-
-//when hovering over the buttons the background chnages color
-  $('#button1').hover(function() {
-      $(this).css({"background-color": "gray", "border": "black solid 2px"})
-    },
-    function() {
-      $(this).css({"background-color": "", "border": ""})
-    });
-
-$('#button2').hover(function() {
-      $(this).css({"background-color": "gray", "border": "black solid 2px"})
-    },
-    function() {
-      $(this).css({"background-color": "", "border": ""})
-    });
-
-$('#button3').hover(function() {
-      $(this).css({"background-color": "gray", "border": "black solid 2px"})
-    },
-    function() {
-      $(this).css({"background-color": "", "border": ""})
-    });
-
-$('#button4').hover(function() {
-      $(this).css({"background-color": "gray", "border": "black solid 2px"})
-    },
-    function() {
-      $(this).css({"background-color": "", "border": ""})
-    });
-
-
-
 
 
 }); 

@@ -8,6 +8,7 @@
 
 #start {
 	text-align: center;
+	margin-left: 50px;
 
 }
 #game {
@@ -69,7 +70,9 @@
 }
 
 
-.buttons:hover {
+.buttons button:hover {
+	background-color: gray;
+	border: black solid 2px;
 
 }
 
