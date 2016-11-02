@@ -19,7 +19,7 @@ $(document).ready(function() {
   var choiceArray3 = ['The Bassist Name', 'Ben Johnson', 'Sting', 'Magazine Ad'];
   var choiceArray4 = ['High School Gym Teacher', 'Eleven', 'John', 'TV Commercial'];
   var correctArray = ['High School Gym Teacher', 'Farrokh Bulsara', 'James', 'Sewing Machine'];
-
+  var gifArray = ['assets/gifs/gif1.gif', 'assets/gifs/gif2.gif', 'assets/gifs/gif3.gif', 'assets/gifs/gif4.gif'];
 
   //functions
   //--------------------------------------------------------------------
@@ -33,6 +33,10 @@ $(document).ready(function() {
   function setTimer() {
     counter = setInterval(timer, 1000);
   }
+ //stops the timer at the end of the game by clearing the variable
+  function stopTimer() {
+    clearTimeout(counter);
+  }
 
   /*reduces time variable by 1 per 1 second interval, insets the time into the 
   #timer div.  If time reaches 0 stop, unanswered++ and call the funciton for the 
@@ -42,7 +46,8 @@ $(document).ready(function() {
     $('#timer').text('Time Remaining: ' + time + ' Seconds');
     if(time == 0){
       unanswered++;
-      newRound();
+      stopTimer();
+      outOfTime();
     }
   }
 
@@ -51,23 +56,21 @@ $(document).ready(function() {
     time = 5;
   }
 
-  //stops the timer at the end of the game by clearing the variable
-  function stopTimer() {
-    clearTimeout(counter);
-  }
   //--------------------------------------------------------------------
 
   /*calls the question and answer to the #game div.  If theround is greater 
   than the amount of questions it will stop the timer, hide the game screen 
   and show results*/
   function init() {
+    $('#pauseScreen').hide();
+    $('#game').show();
     if(round < questions.length) {
-    $('#timer').text('Time Remaining: ' + time + ' Seconds');
-    $('#question').text(questions[round]);
-    $('#button1').text(choiceArray1[round]);
-    $('#button2').text(choiceArray2[round]);
-    $('#button3').text(choiceArray3[round]);
-    $('#button4').text(choiceArray4[round]);
+      $('#timer').text('Time Remaining: ' + time + ' Seconds');
+      $('#question').text(questions[round]);
+      $('#button1').text(choiceArray1[round]);
+      $('#button2').text(choiceArray2[round]);
+      $('#button3').text(choiceArray3[round]);
+      $('#button4').text(choiceArray4[round]);
     } 
     else{
       stopTimer();
@@ -85,20 +88,24 @@ $(document).ready(function() {
   function newRound(){
     round++;
     resetTimer();
+    setTimer();
     init();
   }
 
     /*compares the users choice to the correct answer.  correct/incorrect++ 
     and starts a new round*/
   function checkAnswer(answer) {
+    stopTimer();
     if(answer == correctArray[round]){
       correct++;
-      newRound();
+      stopTimer();
+      rightAnswer();
     }
     else {
       incorrect++;
       console.log("incorrect " + incorrect);
-      newRound();
+      stopTimer();
+      wrongAnswer();
     }
 
   }
@@ -109,16 +116,33 @@ $(document).ready(function() {
     var percent = correct / questions.length;
     return percent * 100
   }
-
-
-  /*function outOfTime() {
-      $('#pauseScreen').show();
+  
+  function pauseScreen() {
+    $('#pauseScreen').show();
+      $('#timer').text('Time Remaining: ' + time + ' Seconds');
       $('#game').hide();
+      $('#gif').html('<img src="' + gifArray[round] + '">');
+  }
+
+  function outOfTime() {
+      setTimeout(newRound, 3000);
+      pauseScreen();
       $('#quickResponse').text("You ran out of time!");
       $('#correctAnswer').text("The correct answer was: " + correctArray[round]);
-      $('#gif').html('<img src="' + gifArray[round] + '">');
-    }*/
+    }
 
+  function wrongAnswer() {
+    setTimeout(newRound, 3000);
+      pauseScreen();
+      $('#quickResponse').text("Wrong Answer!");
+      $('#correctAnswer').text("The correct answer was: " + correctArray[round]);
+  }
+
+  function rightAnswer() {
+    setTimeout(newRound, 3000);
+      pauseScreen();
+      $('#quickResponse').text("Right Answer!");
+  }
   //Main Game
   //--------------------------------------------------------------------
   /*start screen button that when pressed will hide the #start div and show the
