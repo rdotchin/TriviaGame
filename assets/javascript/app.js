@@ -5,16 +5,15 @@ $(document).ready(function() {
   var correct = 0;
   var incorrect = 0;
   var unanswered = 0;
-  var percent = 0
-  var time = 30;
-  /*var counter = setInterval(timer, 1000)*/
-
+  var percent = 0;
+  var time = 5;
+  
   /*arrays containing the questions, choices, and correct answer that the variable
   round will cycle through when called in functions*/
-  var questions = ["Where did the name lynard skynard come from?",
-                   "What is the real name of Freddie Mercury?",
-                   "What is Paul McCartney's first name?",
-                   "How did AC/DC get their name?"];
+  var questions =    ["Where did the name lynard skynard come from?",
+                      "What is the real name of Freddie Mercury?",
+                      "What is Paul McCartney's first name?",
+                      "How did AC/DC get their name?"];
   var choiceArray1 = ['Local Mailman', 'Freddie Mingus', 'James', 'Air Conditioning & DC Comics'];
   var choiceArray2 = ['High School Football Coach', 'Farrokh Bulsara', 'Paul', 'Sewing Machine'];
   var choiceArray3 = ['The Bassist Name', 'Ben Johnson', 'Sting', 'Magazine Ad'];
@@ -29,14 +28,15 @@ $(document).ready(function() {
   //functions to set up the timer
   //--------------------------------------------------------------------
 
-  //sets the timer interval but does not start it
+  /*sets the timer interval to 1 second with a variable of counter to cancel
+  with clearTimeout()*/
   function setTimer() {
     counter = setInterval(timer, 1000);
   }
 
-  /*reduces time variable by 1 per second, insets the time into the #timer div, if time
-  reaches 0 stop and call the funciton for the next question.  Does not start the
-  timer*/
+  /*reduces time variable by 1 per 1 second interval, insets the time into the 
+  #timer div.  If time reaches 0 stop, unanswered++ and call the funciton for the 
+  next question.*/
   function timer() {
     time--;
     $('#timer').text('Time Remaining: ' + time + ' Seconds');
@@ -48,18 +48,18 @@ $(document).ready(function() {
 
   //resets the timer to the starting amount
   function resetTimer() {
-    time = 30;
+    time = 5;
   }
 
-  //stops the timer at the end of the game by calling the variable
+  //stops the timer at the end of the game by clearing the variable
   function stopTimer() {
     clearTimeout(counter);
   }
   //--------------------------------------------------------------------
 
-  /*calls the question and answer to the #game div, resets the timer and 
-  increases the round variable by 1.  If it round is greater than the amount
-  of questions it will stop the timer, hide the #game and show the #results div*/
+  /*calls the question and answer to the #game div.  If theround is greater 
+  than the amount of questions it will stop the timer, hide the game screen 
+  and show results*/
   function init() {
     if(round < questions.length) {
     $('#timer').text('Time Remaining: ' + time + ' Seconds');
@@ -68,8 +68,6 @@ $(document).ready(function() {
     $('#button2').text(choiceArray2[round]);
     $('#button3').text(choiceArray3[round]);
     $('#button4').text(choiceArray4[round]);
-    /*counter;*/
-
     } 
     else{
       stopTimer();
@@ -79,21 +77,19 @@ $(document).ready(function() {
       $('#incorrect').text("Incorrect: " + incorrect);
       $('#unanswered').text("Unanswered: " + unanswered)
       $('#percent').text("Percent Correct: " + percentWin() + "%");
-      
-
     }
     return;
   }
   
+  //calls functions for a new round
   function newRound(){
     round++;
     resetTimer();
     init();
   }
 
-    /*checks the question in the choice array to the correct answer array.  If correct
-  it adds 1 to correct, 1 to round, resets the timer and init calls the new question,
-  choices and timer*/
+    /*compares the users choice to the correct answer.  correct/incorrect++ 
+    and starts a new round*/
   function checkAnswer(answer) {
     if(answer == correctArray[round]){
       correct++;
@@ -115,6 +111,13 @@ $(document).ready(function() {
   }
 
 
+  /*function outOfTime() {
+      $('#pauseScreen').show();
+      $('#game').hide();
+      $('#quickResponse').text("You ran out of time!");
+      $('#correctAnswer').text("The correct answer was: " + correctArray[round]);
+      $('#gif').html('<img src="' + gifArray[round] + '">');
+    }*/
 
   //Main Game
   //--------------------------------------------------------------------
@@ -128,8 +131,8 @@ $(document).ready(function() {
           
   });
 
-  /*if the user selects an answer button it will reset the timer and bring
-  up the next round of questions*/
+  /*calls the checkAnswer function to compare the choice[round#] in the array the user
+  made to the correct answer*/
   $('#button1').on('click', function() {
       checkAnswer(choiceArray1[round])
       
@@ -148,15 +151,12 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
+//CSS
+//--------------------------------------------------------------------
 
 //when hovering over the buttons the background chnages color
   $('#button1').hover(function() {
       $(this).css({"background-color": "gray", "border": "black solid 2px"})
-
     },
     function() {
       $(this).css({"background-color": "", "border": ""})
@@ -164,7 +164,6 @@ $(document).ready(function() {
 
 $('#button2').hover(function() {
       $(this).css({"background-color": "gray", "border": "black solid 2px"})
-
     },
     function() {
       $(this).css({"background-color": "", "border": ""})
@@ -172,7 +171,6 @@ $('#button2').hover(function() {
 
 $('#button3').hover(function() {
       $(this).css({"background-color": "gray", "border": "black solid 2px"})
-
     },
     function() {
       $(this).css({"background-color": "", "border": ""})
@@ -180,11 +178,15 @@ $('#button3').hover(function() {
 
 $('#button4').hover(function() {
       $(this).css({"background-color": "gray", "border": "black solid 2px"})
-
     },
     function() {
       $(this).css({"background-color": "", "border": ""})
     });
+
+
+
+
+
 }); 
 
 
