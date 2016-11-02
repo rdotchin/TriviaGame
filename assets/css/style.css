@@ -1,10 +1,19 @@
 #wrapper {
+	background-image: url("../images/wallpaper.jpg");
 	margin-top: 20px;
-
 
 }
 
+#start {
+	text-align: center;
+	margin-top: 100px
+
+}
 #game {
+	background-color: white;
+	border: black 2px solid;
+	margin: 400px 100px 0px 100px;
+	padding-bottom: 20px;
 	display: none;
 	text-align: center;
 }
@@ -12,11 +21,20 @@
 #question {
 	font-family: 'Roboto', sans-serif;
 	font-size: 26px;
-	color: red;
+	padding-bottom: 20px;
+	
 }
 
+#timer {
+	padding-bottom: 10px;
+	font-size: 20px;
+}
 
 #results {
+	line-height: 35px;
+	background-color: white;
+	border: black 2px solid;
+	margin: 400px 100px 0px 100px;
 	text-align: center;
 	font-size: 26px;
 	font-family: 'Roboto', sans-serif;
@@ -26,9 +44,11 @@
 
 .buttons {
 	font-family: 'Roboto', sans-serif;
-	background: none;	
+	background: none;
+	width: 550px;	
 	border: none;
 	font-size: 26px;
+	line-height: 40px;
 	color: black;
 	outline:none;
 	padding: 0px 100px 0px 100px;
@@ -36,16 +56,9 @@
 
 }
 
-#buttonStart {
-	text-align: center;
-	margin-left: 548px;
-	outline:none;
-	border: black 3px solid;
-	font-size: 26px;
-
-}
 
 
 
 
-}
+
+

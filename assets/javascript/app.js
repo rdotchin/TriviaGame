@@ -4,18 +4,22 @@ $(document).ready(function() {
   var round = 0;
   var correct = 0;
   var incorrect = 0;
+  var unanswered = 0;
   var percent = 0
-  var time = 5;
+  var time = 30;
   /*var counter = setInterval(timer, 1000)*/
 
   /*arrays containing the questions, choices, and correct answer that the variable
   round will cycle through when called in functions*/
-  var questions = ["number four", "number seven", "number five", "number ten"];
-  var choiceArray1 = ['four', 'seven', 'six', 'five'];
-  var choiceArray2 = ['three', 'one', 'eight', 'four'];
-  var choiceArray3 = ['seven', 'ten', 'five', 'six'];
-  var choiceArray4 = ['two', 'eight', 'four', 'ten'];
-  var correctArray = ['four', 'seven', 'five', 'ten'];
+  var questions = ["Where did the name lynard skynard come from?",
+                   "What is the real name of Freddie Mercury?",
+                   "What is Paul McCartney's first name?",
+                   "How did AC/DC get their name?"];
+  var choiceArray1 = ['Local Mailman', 'Freddie Mingus', 'James', 'Air Conditioning & DC Comics'];
+  var choiceArray2 = ['High School Football Coach', 'Farrokh Bulsara', 'Paul', 'Sewing Machine'];
+  var choiceArray3 = ['The Bassist Name', 'Ben Johnson', 'Sting', 'Magazine Ad'];
+  var choiceArray4 = ['High School Gym Teacher', 'Eleven', 'John', 'TV Commercial'];
+  var correctArray = ['High School Gym Teacher', 'Farrokh Bulsara', 'James', 'Sewing Machine'];
 
 
   //functions
@@ -35,17 +39,16 @@ $(document).ready(function() {
   timer*/
   function timer() {
     time--;
-    $('#timer').text(time + ' seconds');
+    $('#timer').text('Time Remaining 00:' + time);
     if(time == 0){
-      checkAnswer();
-      resetTimer();
-      init();
+      unanswered++;
+      newRound();
     }
   }
 
   //resets the timer to the starting amount
   function resetTimer() {
-    time = 5;
+    time = 30;
   }
 
   //stops the timer at the end of the game by calling the variable
@@ -54,33 +57,12 @@ $(document).ready(function() {
   }
   //--------------------------------------------------------------------
 
-  /*checks the question in the choice array to the correct answer array.  If correct
-  it adds 1 to correct, 1 to round, resets the timer and init calls the new question,
-  choices and timer*/
-  function checkAnswer(answer) {
-    if(answer == correctArray[round]){
-      correct++;
-      console.log("correct " + correct);
-      round++;
-      resetTimer();
-      init();
-    }
-    else {
-      incorrect++;
-      console.log("incorrect " + incorrect);
-      round++;
-      resetTimer();
-      init();
-    }
-
-  }
-
   /*calls the question and answer to the #game div, resets the timer and 
   increases the round variable by 1.  If it round is greater than the amount
   of questions it will stop the timer, hide the #game and show the #results div*/
   function init() {
     if(round < questions.length) {
-    $('#timer').text(time + ' seconds');
+    $('#timer').text('Time Remaining 00:' + time);
     $('#question').text(questions[round]);
     $('#button1').text(choiceArray1[round]);
     $('#button2').text(choiceArray2[round]);
@@ -95,11 +77,34 @@ $(document).ready(function() {
       $('#results').show();
       $('#correct').text("Correct: " + correct);
       $('#incorrect').text("Incorrect: " + incorrect);
-      $('#percent').text("Percent: " + percentWin() + "%");
+      $('#unanswered').text("Unanswered: " + unanswered)
+      $('#percent').text("Percent Correct: " + percentWin() + "%");
       
 
     }
     return;
+  }
+  
+  function newRound(){
+    round++;
+    resetTimer();
+    init();
+  }
+
+    /*checks the question in the choice array to the correct answer array.  If correct
+  it adds 1 to correct, 1 to round, resets the timer and init calls the new question,
+  choices and timer*/
+  function checkAnswer(answer) {
+    if(answer == correctArray[round]){
+      correct++;
+      newRound();
+    }
+    else {
+      incorrect++;
+      console.log("incorrect " + incorrect);
+      newRound();
+    }
+
   }
 
   /*divide correct answers by the total amount of questions to give a 
@@ -111,7 +116,7 @@ $(document).ready(function() {
 
 
 
-  //Main Process
+  //Main Game
   //--------------------------------------------------------------------
   /*start screen button that when pressed will hide the #start div and show the
   #game div*/
@@ -143,37 +148,42 @@ $(document).ready(function() {
   });
 
 
+
+
+
+
+
 //when hovering over the buttons the background chnages color
   $('#button1').hover(function() {
-      $(this).css({"background-color": "blue"})
+      $(this).css({"background-color": "gray", "border": "black solid 2px"})
 
     },
     function() {
-      $(this).css({"background-color": ""})
+      $(this).css({"background-color": "", "border": ""})
     });
 
 $('#button2').hover(function() {
-      $(this).css({"background-color": "blue"})
+      $(this).css({"background-color": "gray", "border": "black solid 2px"})
 
     },
     function() {
-      $(this).css({"background-color": ""})
+      $(this).css({"background-color": "", "border": ""})
     });
 
 $('#button3').hover(function() {
-      $(this).css({"background-color": "blue"})
+      $(this).css({"background-color": "gray", "border": "black solid 2px"})
 
     },
     function() {
-      $(this).css({"background-color": ""})
+      $(this).css({"background-color": "", "border": ""})
     });
 
 $('#button4').hover(function() {
-      $(this).css({"background-color": "blue"})
+      $(this).css({"background-color": "gray", "border": "black solid 2px"})
 
     },
     function() {
-      $(this).css({"background-color": ""})
+      $(this).css({"background-color": "", "border": ""})
     });
 }); 
 
