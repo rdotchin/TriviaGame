@@ -39,7 +39,7 @@ $(document).ready(function() {
   timer*/
   function timer() {
     time--;
-    $('#timer').text('Time Remaining 00:' + time);
+    $('#timer').text('Time Remaining: ' + time + ' Seconds');
     if(time == 0){
       unanswered++;
       newRound();
@@ -62,7 +62,7 @@ $(document).ready(function() {
   of questions it will stop the timer, hide the #game and show the #results div*/
   function init() {
     if(round < questions.length) {
-    $('#timer').text('Time Remaining 00:' + time);
+    $('#timer').text('Time Remaining: ' + time + ' Seconds');
     $('#question').text(questions[round]);
     $('#button1').text(choiceArray1[round]);
     $('#button2').text(choiceArray2[round]);
